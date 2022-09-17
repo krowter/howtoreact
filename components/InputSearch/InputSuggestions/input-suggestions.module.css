@@ -1,4 +1,26 @@
 .suggestions {
+  max-height: 15rem;
+  overflow-y: auto;
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0rem;
   position: absolute;
   top: 100%;
+  width: calc(100% - 2rem);
+}
+
+.suggestion {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: 0.3s;
+}
+
+.suggestion:hover {
+  cursor: pointer;
+  background: var(--superlightgray);
+}
+
+.suggestion:active {
+  cursor: pointer;
+  background: var(--lightgray);
 }

@@ -1,5 +1,20 @@
 import styles from "./input-suggestions.module.css";
 
-export function InputSuggestions() {
-  return <div className={styles.suggestions}></div>;
+type InputSuggestionsProps = {
+  suggestions: (string | null)[];
+};
+
+export function InputSuggestions({ suggestions }: InputSuggestionsProps) {
+  return (
+    <ul className={styles.suggestions}>
+      {suggestions.map((suggestion) =>
+        suggestion === null ? null : (
+          <li
+            dangerouslySetInnerHTML={{ __html: suggestion }}
+            className={styles.suggestion}
+          ></li>
+        )
+      )}
+    </ul>
+  );
 }

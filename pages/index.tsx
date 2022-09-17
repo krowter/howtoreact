@@ -2,11 +2,17 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { TextGradient } from "components/TextGradient";
-
-import styles from "../styles/home.module.css";
 import { InputSearch } from "components/InputSearch";
+import { getAllQuestions } from "services/getAllQuestions";
+import { Question } from "types/content";
 
-const Home: NextPage = () => {
+import styles from "styles/home.module.css";
+
+type HomeProps = {
+  questions: Question[];
+};
+
+function Home(props: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
@@ -26,11 +32,17 @@ const Home: NextPage = () => {
         <p className={styles.description}>
           Koleksi pertanyaan-pertanyaan umum mengenai React JS
         </p>
-
-        <InputSearch />
+        <InputSearch questions={props.questions} />
       </main>
     </div>
   );
-};
+}
+
+export async function getStaticProps() {
+  const questions = await getAllQuestions();
+  return {
+    props: { questions },
+  };
+}
 
 export default Home;
