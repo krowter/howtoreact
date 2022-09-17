@@ -1,0 +1,45 @@
+.prefixWrapper {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.capsule {
+  line-height: 2.5rem;
+  border: 1px solid var(--lightgray);
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  border-radius: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .capsule {
+    line-height: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 2rem;
+  }
+}
+
+.prefix {
+  color: var(--gray);
+  background: linear-gradient(to bottom, white, rgba(154, 154, 154, 0.3));
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  width: 100%;
+}
+
+.inputWrapper {
+  width: 100%;
+  position: relative;
+}
+
+.input:focus {
+  outline: 1px solid var(--gray);
+}
