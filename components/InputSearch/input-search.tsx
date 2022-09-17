@@ -15,14 +15,17 @@ export function InputSearch({ questions }: { questions: Question[] }) {
 
   const [suggestions, setSuggestions] = useState<
     Fuzzysort.KeyResults<{ index: string; slug: string }>
-    // @ts-ignore TODO: find better type for this initial value
+    // @ts-ignore TODO: find out about this 'total' thing
   >([]);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const keyword = e.target.value;
 
-    const result = fuzzysort.go(keyword, questionIndexes, { key: "index" });
+    let result = fuzzysort.go(keyword, questionIndexes, { key: "index" });
 
+    result.forEach((single) => {
+      single.obj.index = fuzzysort.highlight(single, "<b>", "</b>") as string;
+    });
     setSuggestions(result);
   }
 
