@@ -1,19 +1,35 @@
 import { GetStaticProps } from "next";
-import { useRouter } from "next/router";
+import ReactMarkdown from "react-markdown";
+
+import { getAllQuestions } from "services/getAllQuestions";
 import { getQuestionBySlug } from "services/getQuestionBySlug";
+import { Question } from "types/content";
 
-export default function QuestionBySlug(props) {
-  const {
-    query: { slug },
-  } = useRouter();
+type QuestionBySlugProps = {
+  question: Question;
+};
 
-  return <h1>asd</h1>;
+export default function QuestionBySlug(props: QuestionBySlugProps) {
+  return <ReactMarkdown>{props.question.content}</ReactMarkdown>;
 }
 
-export async function getStaticProps({ params }: GetStaticProps) {
-  //   const questions = await getQuestionBySlug();
+export const getStaticProps: GetStaticProps = async function ({ params }) {
+  const question = await getQuestionBySlug(params?.slug as string);
+
   return {
-    // props: { questions },
-    props: 123,
+    props: { question },
   };
-}
+};
+
+export const getStaticPaths = async () => {
+  const questions = await getAllQuestions();
+
+  return {
+    paths: questions.map((q) => ({
+      params: {
+        slug: q.data.slug,
+      },
+    })),
+    fallback: false,
+  };
+};
