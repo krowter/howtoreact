@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 import styles from "./input-suggestions.module.css";
 
 type InputSuggestionsProps = {
-  suggestions: (string | null)[];
+  suggestions: Fuzzysort.KeyResults<{ index: string; slug: string }>;
 };
 
 export function InputSuggestions({ suggestions }: InputSuggestionsProps) {
@@ -9,11 +11,12 @@ export function InputSuggestions({ suggestions }: InputSuggestionsProps) {
     <ul className={styles.suggestions}>
       {suggestions.map((suggestion) =>
         suggestion === null ? null : (
-          <li
-            key={suggestion}
-            dangerouslySetInnerHTML={{ __html: suggestion }}
-            className={styles.suggestion}
-          ></li>
+          <Link href={suggestion.obj.slug} key={suggestion.obj.index}>
+            <li
+              dangerouslySetInnerHTML={{ __html: suggestion.obj.index }}
+              className={styles.suggestion}
+            ></li>
+          </Link>
         )
       )}
     </ul>

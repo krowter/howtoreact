@@ -13,18 +13,17 @@ export function InputSearch({ questions }: { questions: Question[] }) {
     [questions.length]
   );
 
-  const [suggestions, setSuggestions] = useState<(string | null)[]>([]);
+  const [suggestions, setSuggestions] = useState<
+    Fuzzysort.KeyResults<{ index: string; slug: string }>
+    // @ts-ignore TODO: find better type for this initial value
+  >([]);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const keyword = e.target.value;
 
     const result = fuzzysort.go(keyword, questionIndexes, { key: "index" });
 
-    const highlighted = result.map((r) =>
-      fuzzysort.highlight(r, "<b>", "</b>")
-    );
-
-    setSuggestions(highlighted);
+    setSuggestions(result);
   }
 
   return (
