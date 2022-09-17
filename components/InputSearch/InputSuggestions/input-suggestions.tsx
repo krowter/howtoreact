@@ -10,6 +10,7 @@ export function InputSuggestions({ suggestions }: InputSuggestionsProps) {
       {suggestions.map((suggestion) =>
         suggestion === null ? null : (
           <li
+            key={suggestion}
             dangerouslySetInnerHTML={{ __html: suggestion }}
             className={styles.suggestion}
           ></li>
